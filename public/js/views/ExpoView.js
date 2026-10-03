@@ -277,9 +277,9 @@ export class ExpoView {
   }
 
   /**
-   * Render Grand Lobby View (Entrance + Floating Category Bubbles)
+   * Render Grand Lobby View (Entrance + Floating Category Bubbles + Segments + Quick Inquiries)
    */
-  renderLobby(booths, companyInfo) {
+  renderLobby(booths, companyInfo, segments = [], quickQuestions = []) {
     this.currentView = "lobby";
     this.activeBoothId = null;
     const stage = document.getElementById("expoStage");
@@ -290,12 +290,12 @@ export class ExpoView {
       <div class="lobby-hero-container">
         <!-- Grand Archway Stage Header -->
         <div class="lobby-welcome-banner">
-          <div class="tech-pill">🌐 SENAYAN VIRTUAL CONVENTION HALL</div>
+          <div class="tech-pill">🌐 JAKARTA CONVENTION CENTER (JCC SENAYAN MODE)</div>
           <h1 class="lobby-main-heading">
-            Ekosistem Teknologi Pendidikan & Sistem Bisnis <span class="gradient-text">Al-Imam EduTech</span>
+            Ekosistem Teknologi Pendidikan & Sistem Enterprise <span class="gradient-text">Al-Imam EduTech</span>
           </h1>
           <p class="lobby-hero-desc">
-            Selamat datang di pameran virtual interaktif! Klik salah satu <strong>Gelembung Kategori Inovasi</strong> di bawah ini untuk berpindah langsung ke booth virtual 3D, melihat live demo, simulasi biaya, dan mengunduh katalog resmi.
+            Selamat datang di Virtual Open House & Expo 2026! Jelajahi inovasi software terpadu kelas dunia untuk <strong>Yayasan, Sekolah, Pesantren, Universitas, PT, CV, Firma, Perusahaan Daerah (PD), dan UMKM</strong>. Pilih kategori produk atau konsultasikan langsung dengan <strong>Sales Master Software Developer</strong>.
           </p>
 
           <div class="lobby-stats-strip">
@@ -310,6 +310,69 @@ export class ExpoView {
               )
               .join("")}
           </div>
+        </div>
+
+        <!-- Target Market Segment Navigator -->
+        ${
+          segments.length > 0
+            ? `
+          <div class="lobby-segments-section">
+            <div class="section-badge-center">🏛️ PANDUAN SESUAI TIPE LEMBAGA & BADAN USAHA</div>
+            <h3 class="segments-headline">Pilih Tipe Organisasi Anda untuk Rekomendasi Solusi Khusus:</h3>
+            <div class="segments-grid">
+              ${segments
+                .map(
+                  (seg) => `
+                <div class="segment-card" data-segment-id="${seg.id}" data-target-booth="${seg.recommendedBoothId}">
+                  <div class="segment-icon-box">${seg.icon}</div>
+                  <div class="segment-info">
+                    <div class="segment-header-row">
+                      <h4 class="segment-title">${seg.title}</h4>
+                      <span class="segment-badge">${seg.badge}</span>
+                    </div>
+                    <p class="segment-desc">${seg.desc}</p>
+                  </div>
+                  <div class="segment-action-hint">Rekomendasi Guide ➔</div>
+                </div>
+              `
+                )
+                .join("")}
+            </div>
+          </div>
+        `
+            : ""
+        }
+
+        <!-- Sales Master Quick Questions Bar -->
+        ${
+          quickQuestions.length > 0
+            ? `
+          <div class="lobby-inquiry-bar">
+            <div class="inquiry-header-row">
+              <span class="avatar-mini-icon">👨‍💻</span>
+              <span class="inquiry-title">Tanya Cepat ke <strong>Sales Master Software Developer</strong>:</span>
+            </div>
+            <div class="inquiry-buttons-track">
+              ${quickQuestions
+                .map(
+                  (q) => `
+                <button class="btn-quick-inquiry" data-question-id="${q.id}">
+                  ${q.q}
+                </button>
+              `
+                )
+                .join("")}
+            </div>
+          </div>
+        `
+            : ""
+        }
+
+        <!-- Section Title for Booths -->
+        <div class="booth-section-divider">
+          <div class="divider-line"></div>
+          <span class="divider-text">🚀 4 BOOTH VIRTUAL PAMERAN UTAMA</span>
+          <div class="divider-line"></div>
         </div>
 
         <!-- Floating Interactive 3D Category Bubbles -->
@@ -686,27 +749,43 @@ export class ExpoView {
       <form id="quoteRequestForm" class="quote-form">
         <div class="form-grid-2">
           <div class="form-group">
-            <label for="leadFullName">Nama Lengkap <span class="req">*</span></label>
+            <label for="leadFullName">Nama Lengkap & Gelar <span class="req">*</span></label>
             <input type="text" id="leadFullName" name="fullName" required placeholder="Contoh: Dr. H. Ahmad Fauzi, M.Pd" class="form-input" />
           </div>
 
           <div class="form-group">
-            <label for="leadInstitution">Nama Lembaga / Sekolah / Perusahaan <span class="req">*</span></label>
-            <input type="text" id="leadInstitution" name="institution" required placeholder="Contoh: Ponpes Al-Imam / PT Sinar Digital" class="form-input" />
+            <label for="leadOrgType">Tipe Lembaga / Badan Usaha <span class="req">*</span></label>
+            <select id="leadOrgType" name="orgType" class="form-select" required>
+              <option value="Yayasan Pendidikan">🎓 Yayasan Pendidikan</option>
+              <option value="Sekolah Islam / Madrasah / Pesantren" selected>🕌 Sekolah Islam / Madrasah / Pesantren</option>
+              <option value="Perguruan Tinggi / Universitas">🏛️ Perguruan Tinggi / Universitas</option>
+              <option value="PT (Perseroan Terbatas)">🏢 PT (Perseroan Terbatas)</option>
+              <option value="CV (Commanditaire Vennootschap)">🏢 CV (Commanditaire Vennootschap)</option>
+              <option value="Firma / Kantor Hukum / Konsultan">⚖️ Firma / Kantor Hukum / Konsultan</option>
+              <option value="Perusahaan Daerah (PD / BUMD)">🏛️ Perusahaan Daerah (PD / BUMD)</option>
+              <option value="UMKM / Bisnis Berkembang">🏪 UMKM / Bisnis Berkembang</option>
+              <option value="Institusi / Lembaga Lainnya">🌐 Institusi / Lembaga Lainnya</option>
+            </select>
           </div>
         </div>
 
         <div class="form-grid-2">
           <div class="form-group">
-            <label for="leadEmail">Alamat Email Resmi <span class="req">*</span></label>
-            <input type="email" id="leadEmail" name="email" required placeholder="ahmad.fauzi@pesantren.sch.id" class="form-input" />
+            <label for="leadInstitution">Nama Lembaga / Perusahaan <span class="req">*</span></label>
+            <input type="text" id="leadInstitution" name="institution" required placeholder="Contoh: Yayasan Al-Imam / PT Sinar Digital Nusantara" class="form-input" />
           </div>
 
+          <div class="form-group">
+            <label for="leadEmail">Alamat Email Resmi <span class="req">*</span></label>
+            <input type="email" id="leadEmail" name="email" required placeholder="ahmad.fauzi@domain.sch.id" class="form-input" />
+          </div>
+        </div>
+
+        <div class="form-grid-2">
           <div class="form-group">
             <label for="leadPhone">Nomor WhatsApp / HP Aktif <span class="req">*</span></label>
             <input type="tel" id="leadPhone" name="phone" required placeholder="081234567890" class="form-input" />
           </div>
-        </div>
 
         <div class="form-grid-2">
           <div class="form-group">

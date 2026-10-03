@@ -520,6 +520,96 @@ export class ProductModel {
         hint: "Anda dapat melanjutkan menjelajahi booth lain atau langsung menghubungi kami via WhatsApp."
       }
     };
+
+    // Target Market Segments & Custom Recommendations
+    this.segments = [
+      {
+        id: "yayasan-sekolah",
+        icon: "🎓",
+        title: "Yayasan & Sekolah / Pesantren",
+        badge: "EdTech Focus",
+        desc: "SIAKAD 360°, CBT Anti-Cheat, Tahfidz Tracker, Presensi RFID WA & PPDB",
+        recommendedBoothId: "school-apps",
+        dialogue: {
+          title: "Rekomendasi untuk Yayasan, Sekolah & Pesantren 🎓",
+          message: "Ahlan wa Sahlan! Untuk Yayasan & Lembaga Pendidikan Islam, solusi unggulan kami adalah **Smart School & Islamic EdTech Ecosystem** dan **PPDB Web Portal**. Sistem ini mengotomatiskan rapor kurikulum merdeka, setoran hafalan Quran, hingga absensi RFID notifikasi WhatsApp ke wali murid.",
+          hint: "Klik 'Masuki Booth' pada booth Smart School yang menyala untuk melihat demo langsung!"
+        }
+      },
+      {
+        id: "pt-cv",
+        icon: "🏢",
+        title: "PT, CV & Korporasi",
+        badge: "Enterprise ERP",
+        desc: "Otomasi Akuntansi PSAK, Multi-Gudang Barcode, POS Cabang & HRIS Payroll PPh 21",
+        recommendedBoothId: "enterprise-systems",
+        dialogue: {
+          title: "Rekomendasi untuk PT, CV & Perusahaan 🏢",
+          message: "Selamat datang pimpinan perusahaan! Untuk operasional PT & CV, kami menyarankan **Enterprise ERP & Automation System**. Sistem ini mengeliminasi kebocoran stok multi-gudang, menghasilkan laporan Laba Rugi real-time PSAK, serta menghitung gaji dan PPh 21 TER secara otomatis.",
+          hint: "Booth Enterprise ERP telah kami sorot untuk Anda. Mari lihat simulasi keuangannya!"
+        }
+      },
+      {
+        id: "firma-pd",
+        icon: "⚖️",
+        title: "Firma, PD & Konsultan",
+        badge: "Bespoke System",
+        desc: "Workflow Persetujuan Bertingkat, E-Signature, Audit Log & Enkripsi Data",
+        recommendedBoothId: "enterprise-systems",
+        dialogue: {
+          title: "Rekomendasi untuk Firma, Konsultan & BUMD/PD ⚖️",
+          message: "Bagi Firma hukum/konsultan dan Perusahaan Daerah (PD), keunggulan kami meliputi alur persetujuan berjenjang dengan tanda tangan digital terenkripsi, audit trail lengkap, serta kepemilikan source code 100% tanpa lock-in.",
+          hint: "Jelajahi booth Enterprise ERP atau Web Platform untuk solusi kustomisasi penuh."
+        }
+      },
+      {
+        id: "umkm-startup",
+        icon: "🏪",
+        title: "UMKM & Bisnis Berkembang",
+        badge: "Fast & Agile",
+        desc: "Website Profile Modern, Multi-Branch POS Kasir & Aplikasi Mobile Android/iOS",
+        recommendedBoothId: "web-dev",
+        dialogue: {
+          title: "Rekomendasi untuk UMKM & Usaha Berkembang 🏪",
+          message: "Bagi sahabat UMKM, tingkatkan omset dan profesionalisme bisnis Anda melalui **High-Performance Web Profile** dan **Sistem Kasir Cloud POS**. Ringan digunakan staf, cepat diakses pelanggan di Google, dengan investasi terjangkau.",
+          hint: "Mari kunjungi booth Web Development & Portals untuk melihat paket UMKM kami!"
+        }
+      }
+    ];
+
+    // Quick Interactive Inquiry FAQs for Sales Master
+    this.quickQuestions = [
+      {
+        id: "pricing-scheme",
+        q: "💰 Skema Biaya & Pembayaran?",
+        a: "Kami menyediakan opsi fleksibel: Sekali Bayar (Kepemilikan Source Code Penuh) atau Berlangganan Cloud SaaS (Managed Server & Maintenance). Kami juga menyediakan termin bertahap sesuai milestone pengerjaan proyek."
+      },
+      {
+        id: "custom-module",
+        q: "🧩 Bisa Custom Sesuai SOP Kami?",
+        a: "Tentu saja! Seluruh arsitektur software Al-Imam EduTech dibangun modular secara in-house oleh tim software architect kami, sehingga dapat dikustomisasi 100% mengikuti SOP khas yayasan, sekolah, maupun alur bisnis perusahaan Anda."
+      },
+      {
+        id: "data-security",
+        q: "🔒 Bagaimana Keamanan & Backup Data?",
+        a: "Keamanan data adalah prioritas utama. Kami menerapkan enkripsi database standar perbankan (AES-256), perlindungan Cloudflare anti-DDoS, isolasi multi-tenant, dan pencadangan (backup) otomatis berkala tiap 6 jam."
+      },
+      {
+        id: "timeline-support",
+        q: "⏱️ Waktu Pengerjaan & Training Staf?",
+        a: "Implementasi sistem berkisar 2 hingga 6 minggu tergantung skala paket. Seluruh paket sudah mencakup pelatihan intensif bagi guru, staf TU, akuntan, maupun tim operasional Anda hingga beroperasi lancar dengan garansi penuh."
+      }
+    ];
+  }
+
+  // Get all segments
+  getSegments() {
+    return this.segments;
+  }
+
+  // Get quick questions
+  getQuickQuestions() {
+    return this.quickQuestions;
   }
 
   // Get all booths

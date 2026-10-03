@@ -173,6 +173,46 @@ export class ExpoController {
         return;
       }
 
+      // Target Market Segment Card Click
+      const segmentCard = e.target.closest(".segment-card");
+      if (segmentCard) {
+        e.preventDefault();
+        const segmentId = segmentCard.dataset.segmentId;
+        const targetBoothId = segmentCard.dataset.targetBooth;
+        const segment = this.model.getSegments().find((s) => s.id === segmentId);
+        
+        if (segment) {
+          this.view.playSound("click");
+          this.view.updateGuideDialogue(segment.dialogue);
+          
+          // Remove previous highlights and highlight the recommended booth
+          document.querySelectorAll(".bubble-card").forEach((b) => b.classList.remove("bubble-highlight-pulse"));
+          const targetBubble = document.getElementById(`bubble-${targetBoothId}`);
+          if (targetBubble) {
+            targetBubble.classList.add("bubble-highlight-pulse");
+            targetBubble.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+        }
+        return;
+      }
+
+      // Sales Master Quick Inquiry Question Click
+      const inquiryBtn = e.target.closest(".btn-quick-inquiry");
+      if (inquiryBtn) {
+        e.preventDefault();
+        const qId = inquiryBtn.dataset.questionId;
+        const qData = this.model.getQuickQuestions().find((q) => q.id === qId);
+        if (qData) {
+          this.view.playSound("click");
+          this.view.updateGuideDialogue({
+            title: `Jawaban Konsultasi: ${qData.q}`,
+            message: qData.a,
+            hint: "Ada pertanyaan lain? Klik tombol 'Request Quote' atau hubungi WhatsApp kami kapan saja!"
+          });
+        }
+        return;
+      }
+
       // Close Modal Buttons
       if (
         e.target.closest("#btnCloseModal") ||
@@ -235,7 +275,9 @@ export class ExpoController {
     window.location.hash = "lobby";
     this.view.renderLobby(
       this.model.getAllBooths(),
-      this.model.getCompanyInfo()
+      this.model.getCompanyInfo(),
+      this.model.getSegments(),
+      this.model.getQuickQuestions()
     );
     const dialogue = this.model.getDialogue("welcome");
     this.view.updateGuideDialogue(dialogue);
@@ -291,9 +333,13 @@ export class ExpoController {
 
     // Gather Form Data
     const formData = new FormData(formElement);
+    const orgType = formData.get("orgType")?.toString().trim() || "";
+    const rawInstitution = formData.get("institution")?.toString().trim() || "";
+    const institutionFormatted = orgType ? `[${orgType}] ${rawInstitution}` : rawInstitution;
+
     const leadData = {
       fullName: formData.get("fullName")?.toString().trim(),
-      institution: formData.get("institution")?.toString().trim(),
+      institution: institutionFormatted,
       email: formData.get("email")?.toString().trim(),
       phone: formData.get("phone")?.toString().trim(),
       product: formData.get("product")?.toString().trim(),
