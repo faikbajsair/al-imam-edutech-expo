@@ -6,7 +6,7 @@
 export class ProductModel {
   constructor() {
     // Default Google Apps Script Web App URL (Connected to Google Sheets)
-    this.gasApiUrl = "https://script.google.com/macros/s/AKfycbxx_z-yJ-RL3uu75vY8m5WzCyIa5dqSJx1g_fIszFRoq9czn0iKz5iAQpNHchvqv5odpw/exec";
+    this.gasApiUrl = "https://script.google.com/macros/s/AKfycbxA5GQ7Wrn1n8dgmWA9IiUIEOB80bAxDUS9SxCpoNhbVIc4Mb1bvg2yMHJl_olgPu9tEA/exec";
     
     // Al-Imam EduTech Vision, Mission & Company Info
     this.companyInfo = {
@@ -27,7 +27,7 @@ export class ProductModel {
       ],
       contact: {
         whatsapp: "+62 812-3456-7890",
-        email: "contact@alimam-edutech.com",
+        email: "faikbajsair@gmail.com",
         location: "Grand Virtual Expo Hall 1 (JCC Senayan Mode), Jakarta, Indonesia"
       }
     };

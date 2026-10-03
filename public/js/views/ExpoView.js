@@ -996,7 +996,7 @@ export class ExpoView {
         </div>
 
         <div class="footer">
-          Al-Imam EduTech • Hubungi Tim Sales: +62 812-3456-7890 • contact@alimam-edutech.com
+          Al-Imam EduTech • Hubungi Tim Sales: +62 812-3456-7890 • faikbajsair@gmail.com
         </div>
         <script>
           window.onload = function() { window.print(); }

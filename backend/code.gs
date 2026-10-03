@@ -5,7 +5,7 @@
  */
 
 // Configuration: You can set a default notification email if desired
-var NOTIFICATION_EMAIL = ""; // e.g., "sales@alimam-edutech.com" or leave blank
+var NOTIFICATION_EMAIL = "faikbajsair@gmail.com";
 
 /**
  * Handle incoming POST requests from the Virtual Expo Frontend
